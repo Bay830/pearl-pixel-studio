@@ -1,0 +1,3 @@
+create table if not exists redeem_codes (id bigserial primary key, code text unique not null, total_uses integer not null check (total_uses > 0), remaining_uses integer not null check (remaining_uses >= 0), created_at timestamptz not null default now(), expires_at timestamptz, is_active boolean not null default true);
+create table if not exists generation_logs (id bigserial primary key, redeem_code_id bigint not null references redeem_codes(id), style text, status text not null default 'started', created_at timestamptz not null default now(), finished_at timestamptz, error_message text);
+insert into redeem_codes (code,total_uses,remaining_uses) values ('TEST-1',1,1),('TEST-3',3,3),('TEST-10',10,10) on conflict(code) do nothing;
