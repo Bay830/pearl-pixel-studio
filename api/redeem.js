@@ -1,6 +1,8 @@
-const { findCode } = require('../lib/redeem-store.cjs');
-const { createToken, setToken } = require('../lib/redeem-token.cjs');
-module.exports = async (req, res) => {
+import store from '../lib/redeem-store.cjs';
+import token from '../lib/redeem-token.cjs';
+const { findCode } = store;
+const { createToken, setToken } = token;
+export default async (req, res) => {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   try {
     const code = String(req.body?.code || '').trim().toUpperCase();

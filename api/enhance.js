@@ -1,6 +1,8 @@
 const json = (res, status, data) => res.status(status).json(data);
-const { readToken } = require('../lib/redeem-token.cjs');
-const { consumeCredit, finishGeneration, refundCredit } = require('../lib/redeem-store.cjs');
+import token from '../lib/redeem-token.cjs';
+import store from '../lib/redeem-store.cjs';
+const { readToken } = token;
+const { consumeCredit, finishGeneration, refundCredit } = store;
 const guides = {
   '精致像素':'精致像素肖像，深色整齐轮廓，清晰眼睛眼白瞳孔高光，鼻子嘴巴独立像素块，主体占80%以上，白色或浅灰背景。',
   '动漫像素':'日系动漫像素，大而清晰的眼睛，明显高光，简洁五官，发丝分组，明快配色，保留人物发型表情和衣服。',
