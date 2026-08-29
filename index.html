@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f6f7fb" />
+    <title>拼豆图纸工坊 · Pearl Pixel Studio</title>
+    <link rel="stylesheet" href="src/style.css" />
+    <style>
+      @media (max-width: 760px) {
+        body { min-width: 0; overflow-x: hidden; }
+        header { border-bottom: 0; padding: 12px 18px; background: rgba(255,255,255,.92); }
+        main { padding: 18px 14px 32px; }
+        .workspace { display: flex; flex-direction: column; gap: 14px; }
+        .controls, .preview-panel { width: 100%; box-sizing: border-box; }
+        .canvas-wrap { width: 100%; box-sizing: border-box; overflow: auto; }
+        .preview-panel { overflow: hidden; }
+        .canvas-wrap canvas { max-width: none; }
+        .color-items { grid-template-columns: repeat(2, 1fr); }
+        .color-list-head { align-items: flex-start; flex-direction: column; gap: 4px; }
+        .hero { margin: 4px 0 18px; padding: 4px 2px; }
+        .hero .eyebrow { color: #09ae8c; font-weight: 700; }
+        .hero h1 { font-size: 30px; line-height: 1.22; letter-spacing: -.04em; }
+        .hero h1 em { background: linear-gradient(90deg,#08b887,#18aeea); -webkit-background-clip:text; color:transparent; }
+        .hero-note { display: none; }
+        .panel { border-radius: 22px; box-shadow: 0 8px 28px rgba(38,55,80,.08); }
+        .controls { background: #fff; }
+        .dropzone { border-radius: 18px; background: #fbfffe; }
+        .primary { border-radius: 16px; background: linear-gradient(110deg,#08b887,#16b6e9); box-shadow: 0 8px 18px rgba(13,181,153,.22); }
+        .field, .toggle-row { background: #fbfcfe; border-radius: 14px; padding: 12px; }
+        .how { border-radius: 20px; box-shadow: 0 6px 22px rgba(38,55,80,.06); }
+      }
+      .wizard-steps { display:flex; align-items:center; justify-content:center; gap:16px; padding:18px 24px; margin:0 auto 18px; max-width:980px; border-bottom:1px solid #e7edf5; color:#a0aec0; font-weight:700; }
+      .wizard-steps span { display:flex; align-items:center; gap:8px; white-space:nowrap; }
+      .wizard-steps span.active { color:#08b99b; }
+      .wizard-steps i { display:grid; place-items:center; width:28px; height:28px; border-radius:50%; background:#e8eef6; font-style:normal; font-size:13px; }
+      .wizard-steps .active i { color:#fff; background:linear-gradient(135deg,#08b887,#1aaeea); }
+      .wizard-steps hr { width:70px; border:0; border-top:1px solid #d8e1ec; }
+      .style-cards { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:10px; }
+      .style-card { position:relative; min-height:62px; padding:8px 6px; border:1px solid #e7edf5; border-radius:12px; background:#fff; color:#718096; cursor:pointer; }
+      .style-card span { display:block; font-size:20px; margin-bottom:3px; }
+      .style-card b { font-size:11px; }
+      .style-card.active { color:#08ae90; border:2px solid #08b887; background:#f2fffb; }
+      .style-card em { position:absolute; right:4px; top:4px; padding:2px 4px; border-radius:5px; color:#fff; background:#ff665e; font-size:9px; font-style:normal; }
+      @media(max-width:760px){ .wizard-steps{padding:12px 4px;gap:5px;font-size:10px}.wizard-steps hr{width:18px}.wizard-steps i{width:22px;height:22px}.style-cards{grid-template-columns:repeat(4,1fr);gap:5px}.style-card{min-height:55px}.style-card b{font-size:9px}.style-card span{font-size:16px} }
+      .redeem-bar{max-width:980px;margin:16px auto;padding:10px 14px;display:flex;gap:8px;align-items:center;background:#fff;border:1px solid #e7edf5;border-radius:14px}.redeem-bar input{flex:1;border:1px solid #d8e1ec;border-radius:9px;padding:10px 12px;font-size:14px}.redeem-bar button{border:0;border-radius:9px;padding:10px 14px;background:#08b887;color:#fff;font-weight:700}.redeem-bar span{color:#7d8490;font-size:12px}@media(max-width:760px){.redeem-bar{margin:10px 14px;flex-wrap:wrap}.redeem-bar span{width:100%}}
+    </style>
+  </head>
+  <body><div id="app"></div><script src="src/main.js"></script><script src="src/redeem.js"></script><script src="src/zoom.js"></script><script src="src/styles.js"></script><script src="src/auto-ai.js"></script></body>
+</html>

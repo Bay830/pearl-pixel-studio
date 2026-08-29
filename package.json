@@ -1,0 +1,9 @@
+{
+  "name": "pearl-pixel-studio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": { "dev": "vite", "build": "vite build", "preview": "vite preview", "api": "node server.js" },
+  "engines": { "node": ">=20" },
+  "devDependencies": { "vite": "latest" }
+}
