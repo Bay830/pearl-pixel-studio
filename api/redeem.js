@@ -3,11 +3,29 @@ import crypto from 'node:crypto';
 const json = (res, status, data) => res.status(status).json(data);
 const db = async (path, options = {}) => {
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  const base = process.env.SUPABASE_URL;
-  if (!key || !base) throw new Error('Supabase 环境变量未配置');
-  const r = await fetch(`${base}/rest/v1/${path}`, { ...options, headers: { apikey: key, Authorization: `Bearer ${key}`, 'Content-Type': 'application/json', ...(options.headers || {}) } });
+  const rawBase = String(process.env.SUPABASE_URL || '').trim();
+  if (!key || !rawBase) throw new Error('Supabase 环境变量未配置');
+  let base;
+  try {
+    const url = new URL(rawBase);
+    if (url.protocol !== 'https:') throw new Error('必须使用 HTTPS');
+    base = url.toString().replace(/\/$/, '');
+  } catch {
+    throw new Error('SUPABASE_URL 无效，应为 https://项目ID.supabase.co');
+  }
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 12000);
+  let r;
+  try {
+    r = await fetch(`${base}/rest/v1/${path}`, { ...options, signal: controller.signal, headers: { apikey: key, Authorization: `Bearer ${key}`, 'Content-Type': 'application/json', ...(options.headers || {}) } });
+  } catch (error) {
+    if (error?.name === 'AbortError') throw new Error('连接 Supabase 超时，请检查项目状态和部署环境变量');
+    throw new Error(`连接 Supabase 失败：${error?.message || '网络错误'}`);
+  } finally {
+    clearTimeout(timer);
+  }
   const data = await r.json().catch(() => null);
-  if (!r.ok) throw new Error(data?.message || `Supabase ${r.status}`);
+  if (!r.ok) throw new Error(data?.message || data?.hint || `Supabase ${r.status}`);
   return data;
 };
 
