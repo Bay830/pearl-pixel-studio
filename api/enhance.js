@@ -22,7 +22,7 @@ export default async function handler(req, res) {
   const usage = await consumeCredit(session.codeId, req.body.style);
   if (!usage) return json(res, 409, { error: '兑换码次数已用完，请重新验证' });
   try {
-    const prompt = `${guides[req.body.style] || guides['精致像素']} 先识别原图构图并清理背景，再把原图转换成卡通像素原稿。只生成一个连续画面，严格保持原图的主体数量、取景范围、构图和视角；如果原图只有一个主体，就只能生成一个主体。禁止把同一主体重复生成，禁止大头照与全身照并列，禁止双视图、分屏、拼贴、对照图、不同角度展示、上下两部分画面或重复人物。不要擅自改变半身/全身取景，不要补出原图之外的身体。不要生成网格、色号、文字或水印。保持人物数量、姿势、服装和宠物真实特征；宠物不要拟人化。背景干净，色块成片，五官尤其眼睛、鼻子、嘴巴清晰。`;
+    const prompt = `${guides[req.body.style] || guides['精致像素']} 先识别原图构图，再在保留原图完整画幅、宽高比例、取景范围、视角和主体相对位置的基础上转换成卡通像素原稿。禁止放大主体、裁切左右内容、改变半身/全身取景或把横图改成近距离头像。保留原图中所有实际可见主体，但每个主体只出现一次；禁止重复主体、大头照与全身照并列、双视图、分屏、拼贴、对照图、不同角度展示或上下两部分画面。不要补出原图之外的身体或场景。不要生成网格、色号、文字或水印。保持人物和宠物真实特征，背景简化但不删除原图构图，色块成片，五官清晰。`;
     const r = await fetch(`${process.env.VOLCENGINE_BASE_URL || 'https://ark.cn-beijing.volces.com/api/v3'}/images/generations`, { method: 'POST', headers: { Authorization: `Bearer ${process.env.ARK_API_KEY}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ model: process.env.SEEDREAM_MODEL || 'doubao-seedream-4-0-250828', prompt, image: [req.body.image], size: '2K', response_format: 'b64_json', sequential_image_generation: 'disabled' }) });
     const data = await r.json(); if (!r.ok) return json(res, r.status, { error: data?.error?.message || 'Seedream 请求失败' });
     const out = data.data?.[0]; if (!out) return json(res, 502, { error: 'AI 没有返回图片' });
