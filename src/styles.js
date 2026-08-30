@@ -15,6 +15,10 @@
   } else {
     controls.insertBefore(field, controls.querySelector('.field'));
   }
+  const keepMobileOrder = () => {
+    if (innerWidth <= 760 && previewPanel && field.nextElementSibling !== previewPanel) field.after(previewPanel);
+  };
+  addEventListener('resize', keepMobileOrder);
   const title = document.querySelector('.hero h1');
   if (title) title.innerHTML = '让创意，<em>落成图纸。</em>';
   const intro = document.querySelector('.hero .intro');
