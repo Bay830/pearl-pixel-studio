@@ -1,6 +1,8 @@
 (() => {
   const controls = document.querySelector('.controls');
   if (!controls) return;
+  const sizeRange = document.querySelector('#cols');
+  if (sizeRange) sizeRange.max = '128';
   const previewStep = document.querySelector('.preview-panel .panel-title > span');
   if (previewStep) previewStep.textContent = '01';
   const field = document.createElement('div');

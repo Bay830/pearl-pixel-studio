@@ -4,7 +4,7 @@ const PALETTE = [
   ['焦糖棕','#a8734e'],['可可棕','#6f4b3a'],['深棕','#51362d'],['浅棕','#c28a5b'],['炭黑','#252831'],['深灰','#4b515c'],['中灰','#7f8792'],['雾灰','#a9afb8'],['浅灰','#d3d7dc'],['粉白','#f4d8cf'],['浅粉','#e8a7ad'],['深黄','#d9ad3a'],['亮黄','#ffe27a'],['青绿','#4e9b82'],['浅青','#b8e3cf'],['深蓝','#243f67']
 ];
 const COLOR_CODES=['C12','C18','C29','C28','D1','E14','F11','F17','G8','G17','G3','G9','G16','H16','H6','H5','H13','H17','H19','H7','M7','M15','M9','M13','M20','M21','M22','M23','M24','M25','M26','M27'];
-const state = { image:null, cols:64, zoom:1, palette:PALETTE, grid:true, round:false, codes:false, bg:'#ffffff', pixels:[] };
+const state = { image:null, cols:96, zoom:1, palette:PALETTE, grid:true, round:false, codes:false, bg:'#ffffff', pixels:[] };
 const app = document.querySelector('#app');
 const redeemBar = document.createElement('div'); redeemBar.className='redeem-bar'; redeemBar.innerHTML='<input id="redeemCode" placeholder="输入兑换码"><button id="redeemBtn">验证兑换码</button><span id="redeemStatus">未验证</span>'; app.before(redeemBar);
 app.innerHTML = `<header><div class="brand"><span class="brand-mark">✦</span><div><b>拼豆图纸工坊</b><small>PEARL PIXEL STUDIO</small></div></div><span class="status"><i></i> 本地处理 · 图片不上传</span></header>
