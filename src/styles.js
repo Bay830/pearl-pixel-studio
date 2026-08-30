@@ -11,6 +11,8 @@
   const intro = document.querySelector('.hero .intro');
   if (intro) intro.textContent = '上传原始素材，选择风格与尺寸，一键转换为精美像素画和拼豆图纸。';
   window.pearlPixelStyle = '精致像素';
+  const codeToggle = document.querySelector('.code-toggle');
+  if (codeToggle) codeToggle.addEventListener('click', () => setTimeout(() => codeToggle.classList.toggle('active', codeToggle.textContent.includes('隐藏色号')), 0));
   field.querySelectorAll('.style-card').forEach(card => card.onclick = () => {
     const hasImage = document.querySelector('#canvas')?.style.display !== 'none';
     field.querySelectorAll('.style-card').forEach(x => x.classList.remove('active'));
