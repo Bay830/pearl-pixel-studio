@@ -10,6 +10,34 @@
   const styles = [['精致像素','✦'],['动漫像素','◈'],['头像像素','🐾'],['Q版像素','☺'],['星露谷像素','✿'],['像素小人','♙'],['邮票像素','▣'],['我的世界','▦']];
   field.innerHTML = '<label>选择创作风格</label><div class="style-cards">'+styles.map(([name,icon],i)=>`<button class="style-card${i===0?' active':''}" data-style="${name}"><span>${icon}</span><b>${name}</b>${i===0?'<em>推荐</em>':''}</button>`).join('')+'</div><small>选择一种风格后，再点击生成</small>';
   const previewPanel = document.querySelector('.preview-panel');
+  if (previewPanel && !document.querySelector('.face-detail')) {
+    const detail = document.createElement('div');
+    detail.className = 'face-detail';
+    detail.innerHTML = '<div class="face-detail-head"><b>脸部细节参考</b><button type="button">↓ 下载脸部参考图</button></div><canvas></canvas><small>自动放大人物上半身区域，方便查看眼睛、鼻子和嘴巴</small>';
+    previewPanel.appendChild(detail);
+    detail.style.cssText='margin:22px 0 24px;padding:18px;border:1px solid var(--line);border-radius:12px;background:var(--panel,#fff)';
+    detail.querySelector('.face-detail-head').style.cssText='display:flex;justify-content:space-between;align-items:center;margin-bottom:12px';
+    detail.querySelector('button').style.cssText='border:0;border-radius:8px;padding:9px 12px;background:var(--ink,#252831);color:#fff;cursor:pointer';
+    detail.querySelector('canvas').style.cssText='display:block;width:100%;height:auto;image-rendering:pixelated;border-radius:8px;background:#f5f1e6';
+    detail.querySelector('small').style.cssText='display:block;margin-top:9px;color:var(--muted,#7d8490);font-size:11px';
+    const detailCanvas = detail.querySelector('canvas');
+    const detailCtx = detailCanvas.getContext('2d');
+    const updateFaceDetail = () => {
+      const source = document.querySelector('#canvas');
+      if (!source?.width || !source.height) return;
+      const cropW = Math.round(source.width * .5), cropH = Math.round(source.height * .42);
+      const sx = Math.round((source.width - cropW) / 2);
+      detailCanvas.width = cropW * 2; detailCanvas.height = cropH * 2;
+      detailCtx.imageSmoothingEnabled = false;
+      detailCtx.clearRect(0, 0, detailCanvas.width, detailCanvas.height);
+      detailCtx.drawImage(source, sx, 0, cropW, cropH, 0, 0, detailCanvas.width, detailCanvas.height);
+    };
+    setInterval(updateFaceDetail, 500);
+    detail.querySelector('button').onclick = () => {
+      if (!detailCanvas.width) return;
+      const a = document.createElement('a'); a.download = '脸部细节参考图.png'; a.href = detailCanvas.toDataURL('image/png'); a.click();
+    };
+  }
   const dropzone = document.querySelector('#dropzone');
   if (innerWidth <= 760 && dropzone) {
     dropzone.after(field);
