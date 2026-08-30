@@ -81,6 +81,18 @@
         .controls > #generate { position: sticky; bottom: 12px; z-index: 5; box-shadow: 0 8px 22px rgba(8,184,135,.3); }
         .preview-panel { margin-top: 2px; }
         .preview-panel .canvas-wrap { background: #f1f4f8; border-radius: 14px; }
+        .preview-panel { min-width: 0; overflow: hidden; }
+        .preview-panel .panel-title { min-width: 0; align-items: center; }
+        .preview-panel .panel-title h2 { white-space: nowrap; }
+        .preview-panel .actions { min-width: 0; }
+        .preview-panel .actions .export { white-space: nowrap; font-size: 12px; }
+        .canvas-wrap .empty { width: 100%; min-width: 0; padding: 24px 12px; text-align: center; overflow-wrap: anywhere; }
+        .canvas-wrap .empty b, .canvas-wrap .empty span { max-width: 100%; line-height: 1.6; }
+        .preview-panel .legend { width: 100%; min-width: 0; }
+        .preview-panel .legend > div { min-width: 0; }
+        .preview-panel .legend b, .preview-panel .legend span { white-space: normal; }
+        .color-list { overflow: hidden; }
+        .color-list-head span { line-height: 1.5; }
       }
       .code-toggle { transition: background .2s, color .2s, border-color .2s; }
       .code-toggle.active { background: #08b887 !important; color: #fff !important; border-color: #08b887 !important; }
