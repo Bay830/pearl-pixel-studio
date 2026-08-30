@@ -34,6 +34,8 @@
     field.querySelectorAll('.style-card').forEach(x => x.classList.remove('active'));
     card.classList.add('active');
     window.pearlPixelStyle = card.dataset.style;
+    const codeButton = document.querySelector('.code-toggle');
+    if (window.pearlPixelStyle === '动漫像素' && codeButton?.textContent.includes('隐藏色号')) codeButton.click();
     const detailRange = document.querySelector('#cols');
     if (detailRange) {
       const target = window.pearlPixelStyle === '动漫像素' ? 128 : 96;
