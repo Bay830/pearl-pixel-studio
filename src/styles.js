@@ -45,6 +45,7 @@
   } else {
     controls.insertBefore(field, controls.querySelector('.field'));
   }
+  field.querySelector('.style-cards')?.scrollTo({ left: 0, behavior: 'auto' });
   const keepMobileOrder = () => {
     if (innerWidth <= 760 && previewPanel && field.nextElementSibling !== previewPanel) field.after(previewPanel);
   };
@@ -61,6 +62,7 @@
     const hasImage = document.querySelector('#canvas')?.style.display !== 'none';
     field.querySelectorAll('.style-card').forEach(x => x.classList.remove('active'));
     card.classList.add('active');
+    card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     window.pearlPixelStyle = card.dataset.style;
     const codeButton = document.querySelector('.code-toggle');
     if (window.pearlPixelStyle === '动漫像素' && codeButton?.textContent.includes('隐藏色号')) codeButton.click();
