@@ -8,6 +8,8 @@
   const styles = [['精致像素','✦'],['动漫像素','◈'],['头像像素','🐾'],['Q版像素','☺'],['星露谷像素','✿'],['像素小人','♙'],['邮票像素','▣'],['我的世界','▦']];
   field.innerHTML = '<label>选择创作风格</label><div class="style-cards">'+styles.map(([name,icon],i)=>`<button class="style-card${i===0?' active':''}" data-style="${name}"><span>${icon}</span><b>${name}</b>${i===0?'<em>推荐</em>':''}</button>`).join('')+'</div><small>选择一种风格后，再点击生成</small>';
   controls.insertBefore(field, controls.querySelector('.field'));
+  const previewPanel = document.querySelector('.preview-panel');
+  if (previewPanel && innerWidth <= 760) field.after(previewPanel);
   const title = document.querySelector('.hero h1');
   if (title) title.innerHTML = '让创意，<em>落成图纸。</em>';
   const intro = document.querySelector('.hero .intro');
