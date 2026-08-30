@@ -66,7 +66,7 @@
     if (window.pearlPixelStyle === '动漫像素' && codeButton?.textContent.includes('隐藏色号')) codeButton.click();
     const detailRange = document.querySelector('#cols');
     if (detailRange) {
-      const target = window.pearlPixelStyle === '动漫像素' ? 160 : 96;
+      const target = window.pearlPixelStyle === '动漫像素' ? 160 : window.pearlPixelStyle === 'Q版像素' ? 128 : 96;
       detailRange.value = target;
       detailRange.dispatchEvent(new Event('input', { bubbles: true }));
     }
