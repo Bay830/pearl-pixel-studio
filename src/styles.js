@@ -10,7 +10,7 @@
   const styles = [['精致像素','✦'],['动漫像素','◈'],['头像像素','🐾'],['Q版像素','☺'],['星露谷像素','✿'],['像素小人','♙'],['邮票像素','▣'],['我的世界','▦']];
   field.innerHTML = '<label>选择创作风格</label><div class="style-cards">'+styles.map(([name,icon],i)=>`<button class="style-card${i===0?' active':''}" data-style="${name}"><span>${icon}</span><b>${name}</b>${i===0?'<em>推荐</em>':''}</button>`).join('')+'</div><small>选择一种风格后，再点击生成</small>';
   const previewPanel = document.querySelector('.preview-panel');
-  if (previewPanel && !document.querySelector('.face-detail')) {
+  if (false && previewPanel && !document.querySelector('.face-detail')) {
     const detail = document.createElement('div');
     detail.className = 'face-detail';
     detail.innerHTML = '<div class="face-detail-head"><b>脸部细节参考</b><button type="button">↓ 下载脸部参考图</button></div><canvas></canvas><small>自动放大人物上半身区域，方便查看眼睛、鼻子和嘴巴</small>';
