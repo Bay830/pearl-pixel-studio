@@ -1,6 +1,8 @@
 (() => {
   const controls = document.querySelector('.controls');
   if (!controls) return;
+  const previewStep = document.querySelector('.preview-panel .panel-title > span');
+  if (previewStep) previewStep.textContent = '01';
   const field = document.createElement('div');
   field.className = 'style-picker';
   const styles = [['精致像素','✦'],['动漫像素','◈'],['头像像素','🐾'],['Q版像素','☺'],['星露谷像素','✿'],['像素小人','♙'],['邮票像素','▣'],['我的世界','▦']];
