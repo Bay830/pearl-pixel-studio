@@ -34,6 +34,12 @@
     field.querySelectorAll('.style-card').forEach(x => x.classList.remove('active'));
     card.classList.add('active');
     window.pearlPixelStyle = card.dataset.style;
+    const detailRange = document.querySelector('#cols');
+    if (detailRange) {
+      const target = window.pearlPixelStyle === '动漫像素' ? 128 : 96;
+      detailRange.value = target;
+      detailRange.dispatchEvent(new Event('input', { bubbles: true }));
+    }
     const canvas = document.querySelector('#canvas');
     const empty = document.querySelector('.empty');
     if (window.pearlAutoEnhance && canvas && empty) {
