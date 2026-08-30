@@ -69,6 +69,19 @@
         .actions { flex-wrap: wrap; gap: 8px; }
         .actions button, .actions .export { flex: 1; min-height: 42px; }
       }
+      @media (max-width: 520px) {
+        .style-picker { margin-left: -2px; margin-right: -2px; }
+        .style-picker > small { display: block; margin-top: 8px; }
+        .style-picker .style-cards { display: flex; overflow-x: auto; gap: 8px; padding: 3px 2px 8px; scrollbar-width: none; }
+        .style-picker .style-cards::-webkit-scrollbar { display: none; }
+        .style-picker .style-card { flex: 0 0 86px; min-height: 76px; }
+        .style-picker .style-card span { font-size: 22px; }
+        .dropzone { border: 2px dashed #aeb9c8; min-height: 190px; }
+        .controls > .ai-enhance, .controls > .code-toggle { margin-top: 10px; }
+        .controls > #generate { position: sticky; bottom: 12px; z-index: 5; box-shadow: 0 8px 22px rgba(8,184,135,.3); }
+        .preview-panel { margin-top: 2px; }
+        .preview-panel .canvas-wrap { background: #f1f4f8; border-radius: 14px; }
+      }
       .code-toggle { transition: background .2s, color .2s, border-color .2s; }
       .code-toggle.active { background: #08b887 !important; color: #fff !important; border-color: #08b887 !important; }
     </style>
