@@ -44,6 +44,29 @@
       .style-card em { position:absolute; right:4px; top:4px; padding:2px 4px; border-radius:5px; color:#fff; background:#ff665e; font-size:9px; font-style:normal; }
       @media(max-width:760px){ .wizard-steps{padding:12px 4px;gap:5px;font-size:10px}.wizard-steps hr{width:18px}.wizard-steps i{width:22px;height:22px}.style-cards{grid-template-columns:repeat(4,1fr);gap:5px}.style-card{min-height:55px}.style-card b{font-size:9px}.style-card span{font-size:16px} }
       .redeem-bar{max-width:980px;margin:16px auto;padding:10px 14px;display:flex;gap:8px;align-items:center;background:#fff;border:1px solid #e7edf5;border-radius:14px}.redeem-bar input{flex:1;border:1px solid #d8e1ec;border-radius:9px;padding:10px 12px;font-size:14px}.redeem-bar button{border:0;border-radius:9px;padding:10px 14px;background:#08b887;color:#fff;font-weight:700}.redeem-bar span{color:#7d8490;font-size:12px}@media(max-width:760px){.redeem-bar{margin:10px 14px;flex-wrap:wrap}.redeem-bar span{width:100%}}
+      @media (max-width: 520px) {
+        header { height: 58px; padding: 0 14px; }
+        .brand { gap: 7px; }
+        .brand-mark { font-size: 23px; }
+        .brand b { font-size: 13px; }
+        main { padding: 24px 12px 28px; }
+        .hero h1 { font-size: 28px; }
+        .hero .intro { font-size: 12px; line-height: 1.65; }
+        .redeem-bar { margin: 8px 12px 14px; padding: 9px; gap: 7px; }
+        .redeem-bar input { min-width: 0; width: 100%; flex-basis: 100%; font-size: 16px; padding: 12px; }
+        .redeem-bar button { flex: 1; min-height: 44px; font-size: 15px; }
+        .redeem-bar span { flex: 2; width: auto; font-size: 11px; align-self: center; }
+        .panel { border-radius: 16px; }
+        .dropzone { min-height: 170px; padding: 24px 12px; }
+        .style-cards { grid-template-columns: repeat(2, 1fr); gap: 7px; }
+        .style-card { min-height: 64px; padding: 9px; }
+        .style-card b { font-size: 11px; }
+        .primary, .ai-enhance, .code-toggle { width: 100%; min-height: 46px; }
+        .canvas-wrap { min-height: 280px; padding: 10px; }
+        .canvas-wrap canvas { max-width: 100%; height: auto; }
+        .actions { flex-wrap: wrap; gap: 8px; }
+        .actions button, .actions .export { flex: 1; min-height: 42px; }
+      }
     </style>
   </head>
   <body><div id="app"></div><script src="src/main.js"></script><script src="src/redeem.js"></script><script src="src/zoom.js"></script><script src="src/styles.js"></script><script src="src/auto-ai.js"></script></body>
