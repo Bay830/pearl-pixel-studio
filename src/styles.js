@@ -12,6 +12,7 @@
   if (intro) intro.textContent = '上传原始素材，选择风格与尺寸，一键转换为精美像素画和拼豆图纸。';
   window.pearlPixelStyle = '精致像素';
   field.querySelectorAll('.style-card').forEach(card => card.onclick = () => {
+    const hasImage = document.querySelector('#canvas')?.style.display !== 'none';
     field.querySelectorAll('.style-card').forEach(x => x.classList.remove('active'));
     card.classList.add('active');
     window.pearlPixelStyle = card.dataset.style;
@@ -24,7 +25,7 @@
       empty.querySelector('span').textContent = '正在按当前风格重绘主体，请稍候';
     }
     // 已有图片时切换风格立即重新调用对应风格的 AI；未上传时等待上传后自动调用。
-    if (window.pearlAutoEnhance && document.querySelector('#canvas')?.style.display !== 'none') {
+    if (window.pearlAutoEnhance && hasImage) {
       window.pearlAutoEnhance();
     }
   });
