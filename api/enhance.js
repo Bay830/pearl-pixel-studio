@@ -22,11 +22,12 @@ export default async function handler(req, res) {
   const usage = await consumeCredit(session.codeId, req.body.style);
   if (!usage) return json(res, 409, { error: '兑换码次数已用完，请重新验证' });
   try {
-    const prompt = `${guides[req.body.style] || guides['精致像素']} 采用主体优先构图：让原图中最重要的人物或动物完整、清晰地占画面约70%到85%，减少天空、地面和杂乱背景的像素占比；主体不能被裁掉头部、四肢或关键服装。先识别原图构图，再转换成卡通像素原稿。保留原图中所有实际可见的主要主体和相对位置，但每个主体只出现一次；禁止重复主体、大头照与全身照并列、双视图、分屏、拼贴、对照图、不同角度展示或上下两部分画面。不要把横图强行变成只剩头像，也不要补出原图之外的身体或场景。背景简化为少量大色块，不要让背景抢主体。不要生成网格、色号、文字或水印。保持人物和宠物真实特征，色块成片，五官清晰。`;
+    // 第一阶段只生成干净的 AI 像素原稿；前端随后再按拼豆色卡和格数确定性量化。
+    const prompt = `${guides[req.body.style] || guides['精致像素']} 这是拼豆图纸的第一阶段：先生成一张干净、清晰、可继续量化的像素原稿，不要直接生成拼豆网格。采用主体优先构图：让原图中最重要的人物或动物完整、清晰地占画面约70%到85%，减少天空、地面和杂乱背景的像素占比；主体不能被裁掉头部、四肢或关键服装。先识别原图构图，再转换成卡通像素原稿。保留原图中所有实际可见的主要主体和相对位置，但每个主体只出现一次；禁止重复主体、大头照与全身照并列、双视图、分屏、拼贴、对照图、不同角度展示或上下两部分画面。不要把横图强行变成只剩头像，也不要补出原图之外的身体或场景。背景简化为少量大色块，不要让背景抢主体。不要生成网格、色号、文字或水印。保持人物和宠物真实特征，色块成片，五官清晰。`;
     const r = await fetch(`${process.env.VOLCENGINE_BASE_URL || 'https://ark.cn-beijing.volces.com/api/v3'}/images/generations`, { method: 'POST', headers: { Authorization: `Bearer ${process.env.ARK_API_KEY}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ model: process.env.SEEDREAM_MODEL || 'doubao-seedream-4-0-250828', prompt, image: [req.body.image], size: '2K', response_format: 'b64_json', sequential_image_generation: 'disabled' }) });
     const data = await r.json(); if (!r.ok) return json(res, r.status, { error: data?.error?.message || 'Seedream 请求失败' });
     const out = data.data?.[0]; if (!out) return json(res, 502, { error: 'AI 没有返回图片' });
     await finishGeneration(usage.logId, 'completed');
-    return json(res, 200, { imageUrl: out.url || `data:image/png;base64,${out.b64_json}`, remainingUses: usage.remainingUses });
+    return json(res, 200, { imageUrl: out.url || `data:image/png;base64,${out.b64_json}`, stage: 'pixel-source', pipeline: 'doubao-pixel-then-bead', remainingUses: usage.remainingUses });
   } catch (e) { await refundCredit(session.codeId, usage.logId, e.message); return json(res, 502, { error: `AI 服务调用失败：${e.message}` }); }
 }
