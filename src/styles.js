@@ -92,11 +92,14 @@
   // 原图快照只在上传时建立，AI 返回图永远不能成为下一次请求的来源。
   window.pearlOriginalAIImage = null;
   window.pearlOriginalAIReady = false;
+  window.pearlAICache = new Map();
+  document.querySelector('#file')?.addEventListener('change', () => { window.pearlOriginalAIImage = null; window.pearlAICache.clear(); });
   const nativeFetch = window.fetch.bind(window);
   window.fetch = (input, init = {}) => {
     if (typeof input === 'string' && input === '/api/enhance' && init.body) {
-      try { const body = JSON.parse(init.body); window.pearlOriginalAIImage ||= body.image; body.image = window.pearlOriginalAIImage; body.style = window.pearlPixelStyle; init = {...init, body: JSON.stringify(body)}; } catch {}
+      try { const body = JSON.parse(init.body); window.pearlOriginalAIImage ||= body.image; body.image = window.pearlOriginalAIImage; body.style = window.pearlPixelStyle; const cached = window.pearlAICache.get(body.style); if (cached) return Promise.resolve(new Response(JSON.stringify({ imageUrl: cached, remainingUses: null }), { status: 200, headers: { 'Content-Type': 'application/json' } })); init = {...init, body: JSON.stringify(body)}; }
+      catch {}
     }
-    return nativeFetch(input, init);
+    return nativeFetch(input, init).then(async response => { if (typeof input === 'string' && input === '/api/enhance' && response.ok) { try { const data = await response.clone().json(); if (data.imageUrl && window.pearlPixelStyle) window.pearlAICache.set(window.pearlPixelStyle, data.imageUrl); } catch {} } return response; });
   };
 })();
