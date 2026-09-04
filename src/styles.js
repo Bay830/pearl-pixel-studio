@@ -69,7 +69,7 @@
     const detailRange = document.querySelector('#cols');
     if (detailRange) {
       const highDetail = ['动漫像素','星露谷像素','像素小人','邮票像素','我的世界'].includes(window.pearlPixelStyle);
-      const target = highDetail ? 160 : (window.pearlPixelStyle === 'Q版像素' || window.pearlPixelStyle === '头像像素') ? 128 : 96;
+      const target = highDetail ? 160 : (window.pearlPixelStyle === 'Q版像素' || window.pearlPixelStyle === '头像像素' || window.pearlPixelStyle === '精致像素') ? 128 : 96;
       detailRange.value = target;
       detailRange.dispatchEvent(new Event('input', { bubbles: true }));
     }
