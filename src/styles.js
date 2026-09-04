@@ -89,6 +89,9 @@
   const workspace = document.querySelector('.workspace');
   const steps = document.createElement('div'); steps.className = 'wizard-steps'; steps.innerHTML = '<span class="active"><i>1</i>上传图片</span><hr><span><i>2</i>选择风格</span><hr><span><i>3</i>点击生成</span>';
   workspace.parentNode.insertBefore(steps, workspace);
+  // 原图快照只在上传时建立，AI 返回图永远不能成为下一次请求的来源。
+  window.pearlOriginalAIImage = null;
+  window.pearlOriginalAIReady = false;
   const nativeFetch = window.fetch.bind(window);
   window.fetch = (input, init = {}) => {
     if (typeof input === 'string' && input === '/api/enhance' && init.body) {
