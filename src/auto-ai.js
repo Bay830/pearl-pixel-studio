@@ -3,11 +3,8 @@
   const ai = document.querySelector('.ai-enhance');
   if (!generate || !ai) return;
   let running = false;
-  const isLocalStyle = () => (window.pearlPixelStyle || '精致像素') === '精致像素';
-  const renderLocal = () => document.querySelector('#cols')?.dispatchEvent(new Event('input', { bubbles: true }));
   const runAI = async () => {
     if (running || !window.pearlRunAI) return;
-    if (isLocalStyle()) { renderLocal(); return; }
     running = true;
     try { await window.pearlRunAI(); } finally { running = false; }
   };
@@ -15,7 +12,6 @@
   generate.textContent = '重新生成拼豆图纸';
   generate.onclick = () => {
     if (!window.pearlRunAI) return;
-    if (isLocalStyle()) { renderLocal(); return; }
     const canvas = document.querySelector('#canvas');
     const empty = document.querySelector('.empty');
     if (canvas && empty) { canvas.style.display = 'none'; empty.style.display = 'flex'; empty.querySelector('b').textContent = 'AI 精致像素生成中…'; empty.querySelector('span').textContent = '正在生成最终拼豆图纸'; }
